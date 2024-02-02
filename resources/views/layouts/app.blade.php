@@ -22,17 +22,15 @@
     <header>
         <ul class="nav justify-content-center h-100 d-flex align-items-center">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Create</a>
-            </li>
             <li class="nav-item search col-3">
                 <input type="text" class="form-control" />
             </li>
+
             <li>
                 <!-- Authentication Links -->
             @guest

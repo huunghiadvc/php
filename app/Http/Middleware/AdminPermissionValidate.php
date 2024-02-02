@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 
-class CheckAdminPermission
+class AdminPermissionValidate
 {
 
     /**
@@ -30,10 +30,13 @@ class CheckAdminPermission
     {
         $authUser = Auth::user();
 
-        if ($this->isAdmin($authUser)) {
-            return $next($request);
+        if ($authUser != null) {
+            if ($this->isAdmin($authUser)) {
+                return $next($request);
+            }
+            return redirect('/error')->with('error', 'You do not have permission to access the dashboard.');
         }
 
-        return redirect('/error')->with('error', 'You do not have permission to access the dashboard.');
+        return redirect('/login')->with('error', 'Please login first.');
     }
 }

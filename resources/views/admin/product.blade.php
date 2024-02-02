@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("admin.adminLayout")
 @section("title", "Chỉnh sửa sản phẩm")
 @section("content")
 

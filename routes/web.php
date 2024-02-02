@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use \App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,24 +17,25 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::middleware(['AdminPermissionValidate'])->group(function () {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
-Route::middleware(['CheckAdminPermission'])->group(function () {
-    Route::resource('dashboard', AdminController::class);
+    Route::get('/dashboard/products', [ProductController::class, 'index'])->name('dashboard.product.index');
 
-    Route::get('dashboard/{id}', [AdminController::class, 'show'])->name('dashboard.product');
+    Route::get('/dashboard/products/{id}', [ProductController::class, 'show'])->name('dashboard.product');
 
-    Route::post('/dashboard/update', [AdminController::class, 'update'])->name('dashboard.update');
+    Route::post('/dashboard/products/update', [ProductController::class, 'update'])->name('dashboard.update');
 
-    Route::delete('/dashboard/{id}', [AdminController::class, 'destroy'])->name('dashboard.destroy');
+    Route::post('/dashboard/products/store', [ProductController::class, 'store'])->name('dashboard.store');
+
+    Route::delete('/dashboard/products/{id}', [ProductController::class, 'destroy'])->name('dashboard.destroy');
 });
 
